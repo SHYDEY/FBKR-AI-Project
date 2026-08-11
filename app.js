@@ -164,9 +164,8 @@ function renderItem(item, score = Math.floor(Math.random() * 8) + 92) {
   $('#menuDescription').textContent = item.desc;
   $('#menuTime').textContent = `${item.time}분`;
   $('#menuPrice').textContent = formatPrice(item.price);
-  $('#foodEmoji').textContent = item.emoji;
-  $('#foodVisual').setAttribute('aria-label', `${item.name} 일러스트`);
-  $('#foodVisual').classList.toggle('drink-visual', currentType === 'drink');
+  $('#foodImage').src = `assets/images/${item.id}.webp`;
+  $('#foodImage').alt = `${item.name} 실사 이미지`;
   $('#matchScore').textContent = score;
   syncMainHeart();
 }
@@ -217,9 +216,11 @@ function renderQuickCards() {
       <article class="quick-card" data-item-id="${item.id}">
         <span class="quick-rank" aria-label="인기 ${index + 1}위">${index + 1}</span>
         <button class="quick-select" type="button" data-item="${item.id}" aria-label="${item.name} 추천 보기">
-          <span class="quick-emoji">${item.emoji}</span>
-          <h3>${item.name}</h3>
-          <p>${item.category} · ${item.time}분 · ${formatPrice(item.price)}</p>
+          <img class="quick-photo" src="assets/images/${item.id}.webp" alt="" loading="lazy" decoding="async" />
+          <span class="quick-info">
+            <h3>${item.name}</h3>
+            <p>${item.category} · ${item.time}분 · ${formatPrice(item.price)}</p>
+          </span>
           <span class="arrow">↗</span>
         </button>
         <button class="quick-like${liked ? ' liked' : ''}" type="button" data-like-item="${item.id}" aria-label="${item.name} ${liked ? '저장 취소' : '저장하기'}" aria-pressed="${liked}">

@@ -97,16 +97,9 @@ select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,79,57,.
 .heart-button.liked { color: var(--coral); }
 .heart-button.liked svg { fill: currentColor; }
 .heart-button:disabled, .quick-like:disabled { cursor: wait; opacity: .55; }
-.food-visual { height: 290px; background: #f2e7d3; display: grid; place-items: center; position: relative; overflow: hidden; }
-.food-visual.drink-visual { background: #e1ede4; }
-.food-visual::before, .food-visual::after { content: ""; position: absolute; border: 1px solid rgba(90, 82, 61, .13); border-radius: 50%; }
-.food-visual::before { width: 360px; height: 360px; left: -135px; top: -195px; }
-.food-visual::after { width: 250px; height: 250px; right: -150px; bottom: -150px; }
-.plate-shadow { position: absolute; width: 210px; height: 45px; background: rgba(59, 49, 31, .18); filter: blur(11px); border-radius: 50%; bottom: 45px; }
-.food-emoji { font-size: 142px; position: relative; z-index: 2; filter: drop-shadow(0 13px 7px rgba(74,49,28,.21)); transform: rotate(-4deg); line-height: 1; }
-.steam { position: absolute; top: 45px; z-index: 2; color: rgba(255,255,255,.9); font-family: serif; font-size: 45px; transform: rotate(90deg); animation: steam 2.5s ease-in-out infinite; }
-.steam-a { left: 44%; }.steam-b { left: 54%; animation-delay: .8s; }
-@keyframes steam { 0%,100% { transform: rotate(90deg) translateX(0); opacity: .25; } 50% { transform: rotate(90deg) translateX(-9px); opacity: .8; } }
+.food-visual { height: 290px; background: #eee8dc; position: relative; overflow: hidden; }
+.food-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; transition: transform .45s ease; }
+.menu-card:hover .food-photo { transform: scale(1.025); }
 .card-content { padding: 23px 26px 22px; }
 .card-heading { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
 .mini-label { color: var(--coral); font-size: 9px; letter-spacing: .12em; font-weight: 900; margin: 0 0 6px; }
@@ -128,8 +121,10 @@ select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,79,57,.
 .quick-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .quick-card { min-height: 178px; border: 1px solid #ded9ce; border-radius: 7px; background: rgba(255,253,249,.7); padding: 0; transition: .2s ease; position: relative; overflow: hidden; }
 .quick-card:hover { transform: translateY(-5px); background: white; box-shadow: 0 12px 24px rgba(44,49,41,.09); }
-.quick-select { width: 100%; min-height: 178px; padding: 20px; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
-.quick-card .quick-emoji { font-size: 49px; display: block; margin-bottom: 15px; filter: drop-shadow(0 5px 4px rgba(0,0,0,.12)); }
+.quick-select { width: 100%; min-height: 205px; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.quick-photo { width: 100%; height: 116px; display: block; object-fit: cover; transition: transform .35s ease; }
+.quick-card:hover .quick-photo { transform: scale(1.035); }
+.quick-info { display: block; padding: 14px 16px 18px; }
 .quick-card h3 { font-family: "Gowun Batang", Georgia, serif; margin: 0 0 4px; font-size: 18px; }.quick-card p { margin: 0; color: #858981; font-size: 10px; }.quick-card .arrow { position: absolute; right: 16px; bottom: 17px; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #cbc7bd; font-size: 13px; }
 .quick-rank { position: absolute; left: 15px; top: 14px; z-index: 2; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; background: var(--mustard); color: #4b3815; font-family: Georgia, serif; font-size: 11px; font-weight: 900; box-shadow: 0 4px 9px rgba(91,65,18,.12); }
 .quick-like { position: absolute; z-index: 2; top: 15px; right: 15px; min-width: 52px; height: 30px; padding: 0 9px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid #d8d3c8; border-radius: 999px; background: rgba(255,255,255,.86); color: #777d76; cursor: pointer; }
@@ -143,12 +138,12 @@ footer { max-width: 1160px; margin: 0 auto; padding: 20px 0 35px; border-top: 1p
 .toast { position: fixed; left: 50%; bottom: 28px; z-index: 50; transform: translate(-50%, 30px); opacity: 0; pointer-events: none; background: var(--ink); color: white; border-radius: 30px; padding: 12px 20px; font-size: 12px; transition: .3s ease; box-shadow: 0 8px 25px rgba(0,0,0,.18); }.toast.show { opacity: 1; transform: translate(-50%,0); }
 
 body.dark { --ink: #f2eee5; --muted: #a9afa7; --paper: #18221d; --card: #253129; --line: #465149; --shadow: 0 25px 60px rgba(0,0,0,.3); }
-body.dark .site-header, body.dark .quick-section { background: #1b2720; } body.dark .quick-section { background: #202c25; } body.dark .menu-description, body.dark .meta-row b, body.dark .meta-row span, body.dark .today { color: #b3b9b1; } body.dark .food-visual { background: #5b5140; } body.dark .food-visual.drink-visual { background: #31463a; } body.dark .quick-card, body.dark .team-banner { background: #26332b; border-color: #465149; } body.dark select, body.dark .chip, body.dark .icon-button, body.dark .mode-buttons, body.dark .item-type-switch { background-color: rgba(255,255,255,.06); color: var(--ink); } body.dark .quick-like, body.dark .heart-button { background: rgba(37,49,41,.9); color: #d7ddd6; } body.dark .quick-like.liked, body.dark .heart-button.liked { color: var(--coral); } body.dark select option { color: #111; }
+body.dark .site-header, body.dark .quick-section { background: #1b2720; } body.dark .quick-section { background: #202c25; } body.dark .menu-description, body.dark .meta-row b, body.dark .meta-row span, body.dark .today { color: #b3b9b1; } body.dark .food-visual { background: #5b5140; } body.dark .quick-card, body.dark .team-banner { background: #26332b; border-color: #465149; } body.dark select, body.dark .chip, body.dark .icon-button, body.dark .mode-buttons, body.dark .item-type-switch { background-color: rgba(255,255,255,.06); color: var(--ink); } body.dark .quick-like, body.dark .heart-button { background: rgba(37,49,41,.9); color: #d7ddd6; } body.dark .quick-like.liked, body.dark .heart-button.liked { color: var(--coral); } body.dark select option { color: #111; }
 
 @media (max-width: 900px) {
   .top-nav { display: none; }.hero { grid-template-columns: 1fr; padding-top: 35px; }.hero-copy { padding-right: 0; }.filter-block { max-width: none; }.pick-button { max-width: none; }.result-area { min-height: 650px; margin-top: 40px; }.quick-grid { grid-template-columns: repeat(2, 1fr); }.team-banner { margin-inline: 28px; }.section-heading p:last-child { display: none; } footer { margin-inline: 28px; }
 }
 @media (max-width: 560px) {
-  .site-header { height: 68px; padding: 0 20px; }.today { display: none; }.hero { padding: 30px 20px 55px; }.hero-description br { display: none; }.type-button { grid-template-columns: auto 1fr; }.type-button small { display: none; }.select-row { grid-template-columns: 1fr; }.result-area { min-height: 560px; }.result-area::before { width: 470px; height: 470px; }.menu-card { width: 92%; }.food-visual { height: 245px; }.food-emoji { font-size: 120px; }.stamp { right: 0; top: 0; width: 67px; height: 67px; font-size: 9px; }.result-hint { right: 1%; bottom: -1px; }.quick-section { padding: 50px 20px; }.quick-grid { grid-template-columns: 1fr 1fr; gap: 9px; }.quick-card, .quick-select { min-height: 156px; }.quick-select { padding: 16px; }.quick-like { top: 11px; right: 11px; }.team-banner { margin: 35px 20px; padding: 22px; align-items: flex-start; flex-wrap: wrap; }.team-banner button { width: 100%; margin: 4px 0 0; } footer { margin: 0 20px; }.meta-row { gap: 10px; }.menu-card:hover { transform: rotate(.3deg); }
+  .site-header { height: 68px; padding: 0 20px; }.today { display: none; }.hero { padding: 30px 20px 55px; }.hero-description br { display: none; }.type-button { grid-template-columns: auto 1fr; }.type-button small { display: none; }.select-row { grid-template-columns: 1fr; }.result-area { min-height: 560px; }.result-area::before { width: 470px; height: 470px; }.menu-card { width: 92%; }.food-visual { height: 245px; }.stamp { right: 0; top: 0; width: 67px; height: 67px; font-size: 9px; }.result-hint { right: 1%; bottom: -1px; }.quick-section { padding: 50px 20px; }.quick-grid { grid-template-columns: 1fr 1fr; gap: 9px; }.quick-card, .quick-select { min-height: 178px; }.quick-photo { height: 96px; }.quick-info { padding: 12px 13px 15px; }.quick-like { top: 11px; right: 11px; }.team-banner { margin: 35px 20px; padding: 22px; align-items: flex-start; flex-wrap: wrap; }.team-banner button { width: 100%; margin: 4px 0 0; } footer { margin: 0 20px; }.meta-row { gap: 10px; }.menu-card:hover { transform: rotate(.3deg); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
