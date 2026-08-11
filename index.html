@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf2" />
+    <meta name="description" content="취향과 상황에 맞춰 오늘의 점심 메뉴를 빠르게 골라주는 런치픽" />
+    <title>런치픽 — 오늘 점심, 고민 끝!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="런치픽 홈">
+        <span class="brand-mark">L</span>
+        <span>런치픽</span>
+      </a>
+      <nav class="top-nav" aria-label="주요 메뉴">
+        <a class="active" href="#picker">메뉴 고르기</a>
+        <a href="#team">팀 투표</a>
+      </nav>
+      <div class="header-actions">
+        <span class="today" id="todayLabel"></span>
+        <button class="icon-button" id="themeButton" type="button" aria-label="화면 테마 전환">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="picker">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> 오늘도 맛있는 하루</p>
+          <h1>오늘 점심,<br /><em>뭐 먹지?</em></h1>
+          <p class="hero-description">결정은 런치픽에게 맡기고,<br />당신은 맛있게 먹기만 하세요.</p>
+
+          <div class="filter-block">
+            <div class="filter-title-row">
+              <h2>오늘의 기분은?</h2>
+              <button class="reset-button" id="resetButton" type="button">초기화</button>
+            </div>
+            <div class="chips" id="moodChips" aria-label="기분 선택">
+              <button class="chip active" type="button" data-value="all"><span>✨</span> 아무거나</button>
+              <button class="chip" type="button" data-value="warm"><span>♨️</span> 따뜻하게</button>
+              <button class="chip" type="button" data-value="fresh"><span>🌿</span> 산뜻하게</button>
+              <button class="chip" type="button" data-value="spicy"><span>🔥</span> 스트레스 풀게</button>
+              <button class="chip" type="button" data-value="hearty"><span>💪</span> 든든하게</button>
+            </div>
+
+            <div class="select-row">
+              <label>
+                <span>예산</span>
+                <select id="budgetSelect">
+                  <option value="all">상관없어요</option>
+                  <option value="10000">1만원 이하</option>
+                  <option value="15000">1만 5천원 이하</option>
+                  <option value="20000">2만원 이하</option>
+                </select>
+              </label>
+              <label>
+                <span>식사 시간</span>
+                <select id="timeSelect">
+                  <option value="all">여유로워요</option>
+                  <option value="quick">30분 안에</option>
+                  <option value="normal">1시간 안에</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <button class="pick-button" id="pickButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-5 5M21 8H8a5 5 0 0 0 0 10h1M8 21l-5-5 5-5"/></svg>
+            <span>오늘의 메뉴 뽑기</span>
+            <kbd>Enter</kbd>
+          </button>
+        </div>
+
+        <div class="result-area" aria-live="polite">
+          <div class="stamp">TODAY'S<br />LUNCH</div>
+          <div class="doodle doodle-one" aria-hidden="true">✦</div>
+          <div class="doodle doodle-two" aria-hidden="true">↝</div>
+          <article class="menu-card" id="menuCard">
+            <div class="card-top">
+              <span class="category-pill" id="categoryPill">한식</span>
+              <button class="heart-button" id="heartButton" type="button" aria-label="추천 메뉴 찜하기">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+              </button>
+            </div>
+            <div class="food-visual" id="foodVisual" role="img" aria-label="김치찌개 일러스트">
+              <div class="plate-shadow"></div>
+              <div class="food-emoji" id="foodEmoji">🍲</div>
+              <span class="steam steam-a">〰</span>
+              <span class="steam steam-b">〰</span>
+            </div>
+            <div class="card-content">
+              <div class="card-heading">
+                <div>
+                  <p class="mini-label">런치픽의 추천</p>
+                  <h2 id="menuName">돼지고기 김치찌개</h2>
+                </div>
+                <span class="match-badge"><b id="matchScore">98</b><small>%</small><em>딱 맞아요</em></span>
+              </div>
+              <p class="menu-description" id="menuDescription">칼칼한 국물에 푹 익은 김치, 실패 없는 든든한 한 끼예요.</p>
+              <div class="meta-row">
+                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b id="menuTime">25분</b></span>
+                <span><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM7 7V5h10v2M8 11h8"/></svg><b id="menuPrice">9,000원</b></span>
+                <span><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2"/></svg><b>회사 근처</b></span>
+              </div>
+            </div>
+          </article>
+          <p class="result-hint">마음에 안 들면 버튼을 다시 눌러보세요!</p>
+        </div>
+      </section>
+
+      <section class="quick-section" aria-labelledby="quickTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span></span> 빠른 선택</p>
+            <h2 id="quickTitle">이런 메뉴는 어때요?</h2>
+          </div>
+          <p>고민할 시간도 아까운 당신을 위한 인기 메뉴</p>
+        </div>
+        <div class="quick-grid" id="quickGrid"></div>
+      </section>
+
+      <section class="team-banner" id="team">
+        <div class="team-icon">👥</div>
+        <div>
+          <p>우리 팀의 의견도 궁금하다면?</p>
+          <h2>점심 메뉴 후보를 공유하고 함께 투표해보세요.</h2>
+        </div>
+        <button id="shareButton" type="button">투표 링크 만들기 <span>→</span></button>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status"></div>
+    <footer><span>© 2026 Lunch Pick</span><p>점심 고민은 짧게, 맛있는 시간은 길게.</p></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
