@@ -31,12 +31,17 @@
       <section class="hero" id="picker">
         <div class="hero-copy">
           <p class="eyebrow"><span></span> 오늘도 맛있는 하루</p>
-          <h1>오늘 점심,<br /><em>뭐 먹지?</em></h1>
-          <p class="hero-description">결정은 런치픽에게 맡기고, 맛있게 먹기만 하자.</p>
+          <h1><span id="heroTitle">오늘 점심,</span><br /><em id="heroEmphasis">뭐 먹지?</em></h1>
+          <p class="hero-description" id="heroDescription">결정은 런치픽에게 맡기고, 맛있게 먹기만 하자.</p>
+
+          <div class="item-type-switch" role="group" aria-label="추천 종류 선택">
+            <button class="type-button active" type="button" data-type="food" aria-pressed="true"><span>🍽️</span><b>점심 메뉴</b><small>20가지</small></button>
+            <button class="type-button" type="button" data-type="drink" aria-pressed="false"><span>🥤</span><b>후식 음료</b><small>10가지</small></button>
+          </div>
 
           <div class="filter-block">
             <div class="filter-title-row">
-              <h2>오늘의 기분은?</h2>
+              <h2 id="filterTitle">오늘의 기분은?</h2>
               <button class="reset-button" id="resetButton" type="button">초기화</button>
             </div>
             <div class="chips" id="moodChips" aria-label="기분 선택">
@@ -58,7 +63,7 @@
                 </select>
               </label>
               <label>
-                <span>식사 시간</span>
+                <span id="timeFilterLabel">식사 시간</span>
                 <select id="timeSelect">
                   <option value="all">여유로워요</option>
                   <option value="quick">30분 안에</option>
@@ -83,7 +88,7 @@
         </div>
 
         <div class="result-area" aria-live="polite">
-          <div class="stamp">TODAY'S<br />LUNCH</div>
+          <div class="stamp" id="resultStamp">TODAY'S<br />LUNCH</div>
           <div class="doodle doodle-one" aria-hidden="true">✦</div>
           <div class="doodle doodle-two" aria-hidden="true">↝</div>
           <article class="menu-card" id="menuCard">
@@ -103,7 +108,7 @@
             <div class="card-content">
               <div class="card-heading">
                 <div>
-                  <p class="mini-label">런치픽의 추천</p>
+                  <p class="mini-label" id="recommendationLabel">런치픽의 추천</p>
                   <h2 id="menuName">돼지고기 김치찌개</h2>
                 </div>
                 <span class="match-badge"><b id="matchScore">98</b><small>%</small><em>딱 맞아요</em></span>
@@ -112,7 +117,7 @@
               <div class="meta-row">
                 <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b id="menuTime">25분</b></span>
                 <span><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM7 7V5h10v2M8 11h8"/></svg><b id="menuPrice">9,000원</b></span>
-                <span><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2"/></svg><b>회사 근처</b></span>
+                <span><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2"/></svg><b id="locationLabel">회사 근처</b></span>
               </div>
             </div>
           </article>
@@ -126,7 +131,7 @@
             <p class="eyebrow"><span></span> 빠른 선택</p>
             <h2 id="quickTitle">지금 인기 있는 메뉴예요</h2>
           </div>
-          <p>누적 저장 수가 높은 런치픽 인기 메뉴 순위</p>
+          <p id="quickSubtitle">누적 저장 수가 높은 런치픽 인기 메뉴 순위</p>
         </div>
         <div class="quick-grid" id="quickGrid"></div>
       </section>
@@ -135,7 +140,7 @@
         <div class="team-icon">👥</div>
         <div>
           <p>우리 팀의 의견도 궁금하다면?</p>
-          <h2>점심 메뉴 후보를 공유하고 함께 투표해보세요.</h2>
+          <h2 id="teamHeading">점심 메뉴 후보를 공유하고 함께 투표해보세요.</h2>
         </div>
         <button id="shareButton" type="button">투표 링크 만들기 <span>→</span></button>
       </section>

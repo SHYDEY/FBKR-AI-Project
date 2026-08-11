@@ -5,13 +5,21 @@ create table if not exists public.menu_likes (
   menu_id text primary key,
   like_count bigint not null default 0 check (like_count >= 0),
   updated_at timestamptz not null default now(),
-  constraint menu_likes_menu_id_length check (char_length(menu_id) between 1 and 80),
-  constraint menu_likes_known_menu check (menu_id in (
-    'kimchi-jjigae', 'donkatsu', 'jeyuk-bokkeum', 'beef-pho',
-    'salmon-poke', 'malatang', 'perilla-soba', 'cheeseburger',
-    'sundubu-jjigae', 'shrimp-cream-pasta', 'assorted-sushi', 'dakgalbi-bowl'
-  ))
+  constraint menu_likes_menu_id_length check (char_length(menu_id) between 1 and 80)
 );
+
+-- Keep the allowlist up to date when this script is re-run on an existing project.
+alter table public.menu_likes drop constraint if exists menu_likes_known_menu;
+alter table public.menu_likes add constraint menu_likes_known_menu check (menu_id in (
+  'kimchi-jjigae', 'donkatsu', 'jeyuk-bokkeum', 'beef-pho',
+  'salmon-poke', 'malatang', 'perilla-soba', 'cheeseburger',
+  'sundubu-jjigae', 'shrimp-cream-pasta', 'assorted-sushi', 'dakgalbi-bowl',
+  'bibimbap', 'chicken-curry', 'mul-naengmyeon', 'clam-kalguksu',
+  'beef-burrito', 'chicken-caesar-salad', 'bulgogi-bowl', 'tteokbokki-set',
+  'iced-americano', 'cafe-latte', 'vanilla-latte', 'matcha-latte',
+  'grapefruit-ade', 'lemon-tea', 'black-sugar-bubble-tea',
+  'strawberry-smoothie', 'yuzu-kombucha', 'rooibos-tea'
+));
 
 alter table public.menu_likes enable row level security;
 
