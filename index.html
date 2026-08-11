@@ -66,11 +66,18 @@
                 </select>
               </label>
             </div>
+            <div class="recommendation-mode">
+              <span>추천 방식</span>
+              <div class="mode-buttons" role="group" aria-label="추천 방식 선택">
+                <button class="mode-button active" type="button" data-mode="random">🎲 랜덤 추천</button>
+                <button class="mode-button" type="button" data-mode="popular">♥ 인기순 추천</button>
+              </div>
+            </div>
           </div>
 
           <button class="pick-button" id="pickButton" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-5 5M21 8H8a5 5 0 0 0 0 10h1M8 21l-5-5 5-5"/></svg>
-            <span>오늘의 메뉴 뽑기</span>
+            <span id="pickButtonLabel">오늘의 메뉴 뽑기</span>
             <kbd>Enter</kbd>
           </button>
         </div>
@@ -117,9 +124,9 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow"><span></span> 빠른 선택</p>
-            <h2 id="quickTitle">이런 메뉴는 어때요?</h2>
+            <h2 id="quickTitle">지금 인기 있는 메뉴예요</h2>
           </div>
-          <p>고민할 시간도 아까운 당신을 위한 인기 메뉴</p>
+          <p>누적 저장 수가 높은 런치픽 인기 메뉴 순위</p>
         </div>
         <div class="quick-grid" id="quickGrid"></div>
       </section>

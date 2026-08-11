@@ -13,10 +13,11 @@ const menus = [
   { id: 'dakgalbi-bowl', name: '닭갈비 덮밥', category: '한식', mood: ['spicy','hearty'], price: 11000, time: 30, emoji: '🍱', desc: '매콤한 닭갈비와 따끈한 밥을 한 그릇에 든든하게 담았어요.' }
 ];
 
-const QUICK_MENU_IDS = ['donkatsu', 'salmon-poke', 'malatang', 'perilla-soba'];
 const LIKED_STORAGE_KEY = 'lunch-pick-liked-menus';
 
 let selectedMood = 'all';
+let recommendationMode = 'random';
+let popularCursor = 0;
 let currentMenu = menus[0];
 let lastIndex = -1;
 let toastTimer;
@@ -66,6 +67,13 @@ function getCandidates() {
     const budgetOk = budget === 'all' || menu.price <= Number(budget);
     const timeOk = timing === 'all' || (timing === 'quick' ? menu.time <= 30 : menu.time <= 60);
     return moodOk && budgetOk && timeOk;
+  });
+}
+
+function getMenusByPopularity(sourceMenus = menus) {
+  return [...sourceMenus].sort((a, b) => {
+    const countDifference = (likeCounts.get(b.id) || 0) - (likeCounts.get(a.id) || 0);
+    return countDifference || menus.indexOf(a) - menus.indexOf(b);
   });
 }
 
@@ -127,23 +135,32 @@ function pickMenu() {
     showToast('조건에 맞는 메뉴가 없어요. 필터를 조금 넓혀주세요!');
     return;
   }
-  let index = Math.floor(Math.random() * candidates.length);
-  if (candidates.length > 1) {
-    while (menus.indexOf(candidates[index]) === lastIndex) index = Math.floor(Math.random() * candidates.length);
+  let selectedMenu;
+  if (recommendationMode === 'popular') {
+    const rankedMenus = getMenusByPopularity(candidates);
+    selectedMenu = rankedMenus[popularCursor % rankedMenus.length];
+    popularCursor += 1;
+  } else {
+    let index = Math.floor(Math.random() * candidates.length);
+    if (candidates.length > 1) {
+      while (menus.indexOf(candidates[index]) === lastIndex) index = Math.floor(Math.random() * candidates.length);
+    }
+    selectedMenu = candidates[index];
   }
-  lastIndex = menus.indexOf(candidates[index]);
+  lastIndex = menus.indexOf(selectedMenu);
   card.classList.remove('shuffling');
   void card.offsetWidth;
   card.classList.add('shuffling');
-  setTimeout(() => renderMenu(candidates[index]), 210);
+  setTimeout(() => renderMenu(selectedMenu), 210);
 }
 
 function renderQuickCards() {
-  const quickMenus = QUICK_MENU_IDS.map(id => menus.find(menu => menu.id === id));
-  $('#quickGrid').innerHTML = quickMenus.map(menu => {
+  const quickMenus = getMenusByPopularity().slice(0, 4);
+  $('#quickGrid').innerHTML = quickMenus.map((menu, index) => {
     const liked = likedMenuIds.has(menu.id);
     return `
       <article class="quick-card" data-menu-id="${menu.id}">
+        <span class="quick-rank" aria-label="인기 ${index + 1}위">${index + 1}</span>
         <button class="quick-select" type="button" data-menu="${menu.id}" aria-label="${menu.name} 추천 보기">
           <span class="quick-emoji">${menu.emoji}</span>
           <h3>${menu.name}</h3>
@@ -196,7 +213,8 @@ async function toggleMenuLike(menu) {
   if (shouldLike) likedMenuIds.add(menu.id);
   else likedMenuIds.delete(menu.id);
   saveLikedMenuIds();
-  syncLikeButtons(menu.id);
+  renderQuickCards();
+  syncMainHeart();
   showToast(shouldLike ? `${menu.name}, 저장했어요!` : `${menu.name}, 저장을 취소했어요.`);
 }
 
@@ -206,6 +224,22 @@ $('#moodChips').addEventListener('click', event => {
   document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
   button.classList.add('active');
   selectedMood = button.dataset.value;
+  popularCursor = 0;
+});
+
+$('.mode-buttons').addEventListener('click', event => {
+  const button = event.target.closest('.mode-button');
+  if (!button) return;
+  document.querySelectorAll('.mode-button').forEach(item => item.classList.remove('active'));
+  button.classList.add('active');
+  recommendationMode = button.dataset.mode;
+  popularCursor = 0;
+  $('#pickButtonLabel').textContent = recommendationMode === 'popular'
+    ? '인기 메뉴 추천받기'
+    : '오늘의 메뉴 뽑기';
+  if (recommendationMode === 'popular' && !supabaseClient) {
+    showToast('Supabase 연결 후 누적 저장 순서가 실시간으로 반영돼요.');
+  }
 });
 
 $('#resetButton').addEventListener('click', () => {
@@ -213,8 +247,15 @@ $('#resetButton').addEventListener('click', () => {
   document.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.value === 'all'));
   $('#budgetSelect').value = 'all';
   $('#timeSelect').value = 'all';
+  recommendationMode = 'random';
+  popularCursor = 0;
+  document.querySelectorAll('.mode-button').forEach(button => button.classList.toggle('active', button.dataset.mode === 'random'));
+  $('#pickButtonLabel').textContent = '오늘의 메뉴 뽑기';
   showToast('선택 조건을 초기화했어요.');
 });
+
+$('#budgetSelect').addEventListener('change', () => { popularCursor = 0; });
+$('#timeSelect').addEventListener('change', () => { popularCursor = 0; });
 
 pickButton.addEventListener('click', pickMenu);
 document.addEventListener('keydown', event => {
