@@ -1,28 +1,56 @@
 const menus = [
-  { name: '돼지고기 김치찌개', category: '한식', mood: ['warm','spicy','hearty'], price: 9000, time: 25, emoji: '🍲', desc: '칼칼한 국물에 푹 익은 김치, 실패 없는 든든한 한 끼예요.' },
-  { name: '바삭한 돈카츠', category: '일식', mood: ['hearty'], price: 12000, time: 35, emoji: '🍛', desc: '겉은 바삭하고 속은 촉촉한, 기분 좋은 식감의 정석이에요.' },
-  { name: '직화 제육볶음', category: '한식', mood: ['spicy','hearty'], price: 10000, time: 30, emoji: '🍖', desc: '불향 가득한 매콤달콤 제육으로 오후 에너지를 충전해요.' },
-  { name: '소고기 쌀국수', category: '아시안', mood: ['warm','fresh'], price: 11000, time: 25, emoji: '🍜', desc: '맑고 향긋한 국물과 부드러운 소고기가 편안하게 어울려요.' },
-  { name: '연어 포케', category: '샐러드', mood: ['fresh'], price: 13000, time: 20, emoji: '🥗', desc: '신선한 연어와 채소, 톡톡 씹히는 곡물로 산뜻하고 든든해요.' },
-  { name: '마라탕', category: '중식', mood: ['spicy','warm'], price: 14000, time: 35, emoji: '🥘', desc: '얼얼하고 화끈한 국물 한 입이면 쌓인 스트레스가 사르르.' },
-  { name: '들기름 메밀국수', category: '한식', mood: ['fresh'], price: 10000, time: 20, emoji: '🍝', desc: '고소한 들기름 향과 탱글한 메밀면이 깔끔하게 입맛을 살려줘요.' },
-  { name: '수제 치즈버거', category: '양식', mood: ['hearty'], price: 15000, time: 30, emoji: '🍔', desc: '육즙 가득 패티와 녹진한 치즈로 오늘만큼은 제대로 즐겨요.' },
-  { name: '순두부찌개', category: '한식', mood: ['warm','spicy'], price: 8500, time: 25, emoji: '🍲', desc: '몽글몽글 순두부와 얼큰한 국물이 속을 따뜻하게 채워줘요.' },
-  { name: '새우 크림 파스타', category: '양식', mood: ['hearty'], price: 16000, time: 45, emoji: '🍝', desc: '탱글한 새우와 부드러운 크림소스로 여유로운 점심을 즐겨요.' },
-  { name: '초밥 모둠', category: '일식', mood: ['fresh'], price: 19000, time: 45, emoji: '🍣', desc: '한 점씩 골라 먹는 재미와 신선함이 있는 기분 좋은 한 끼예요.' },
-  { name: '닭갈비 덮밥', category: '한식', mood: ['spicy','hearty'], price: 11000, time: 30, emoji: '🍱', desc: '매콤한 닭갈비와 따끈한 밥을 한 그릇에 든든하게 담았어요.' }
+  { id: 'kimchi-jjigae', name: '돼지고기 김치찌개', category: '한식', mood: ['warm','spicy','hearty'], price: 9000, time: 25, emoji: '🍲', desc: '칼칼한 국물에 푹 익은 김치, 실패 없는 든든한 한 끼예요.' },
+  { id: 'donkatsu', name: '바삭한 돈카츠', category: '일식', mood: ['hearty'], price: 12000, time: 35, emoji: '🍛', desc: '겉은 바삭하고 속은 촉촉한, 기분 좋은 식감의 정석이에요.' },
+  { id: 'jeyuk-bokkeum', name: '직화 제육볶음', category: '한식', mood: ['spicy','hearty'], price: 10000, time: 30, emoji: '🍖', desc: '불향 가득한 매콤달콤 제육으로 오후 에너지를 충전해요.' },
+  { id: 'beef-pho', name: '소고기 쌀국수', category: '아시안', mood: ['warm','fresh'], price: 11000, time: 25, emoji: '🍜', desc: '맑고 향긋한 국물과 부드러운 소고기가 편안하게 어울려요.' },
+  { id: 'salmon-poke', name: '연어 포케', category: '샐러드', mood: ['fresh'], price: 13000, time: 20, emoji: '🥗', desc: '신선한 연어와 채소, 톡톡 씹히는 곡물로 산뜻하고 든든해요.' },
+  { id: 'malatang', name: '마라탕', category: '중식', mood: ['spicy','warm'], price: 14000, time: 35, emoji: '🥘', desc: '얼얼하고 화끈한 국물 한 입이면 쌓인 스트레스가 사르르.' },
+  { id: 'perilla-soba', name: '들기름 메밀국수', category: '한식', mood: ['fresh'], price: 10000, time: 20, emoji: '🍝', desc: '고소한 들기름 향과 탱글한 메밀면이 깔끔하게 입맛을 살려줘요.' },
+  { id: 'cheeseburger', name: '수제 치즈버거', category: '양식', mood: ['hearty'], price: 15000, time: 30, emoji: '🍔', desc: '육즙 가득 패티와 녹진한 치즈로 오늘만큼은 제대로 즐겨요.' },
+  { id: 'sundubu-jjigae', name: '순두부찌개', category: '한식', mood: ['warm','spicy'], price: 8500, time: 25, emoji: '🍲', desc: '몽글몽글 순두부와 얼큰한 국물이 속을 따뜻하게 채워줘요.' },
+  { id: 'shrimp-cream-pasta', name: '새우 크림 파스타', category: '양식', mood: ['hearty'], price: 16000, time: 45, emoji: '🍝', desc: '탱글한 새우와 부드러운 크림소스로 여유로운 점심을 즐겨요.' },
+  { id: 'assorted-sushi', name: '초밥 모둠', category: '일식', mood: ['fresh'], price: 19000, time: 45, emoji: '🍣', desc: '한 점씩 골라 먹는 재미와 신선함이 있는 기분 좋은 한 끼예요.' },
+  { id: 'dakgalbi-bowl', name: '닭갈비 덮밥', category: '한식', mood: ['spicy','hearty'], price: 11000, time: 30, emoji: '🍱', desc: '매콤한 닭갈비와 따끈한 밥을 한 그릇에 든든하게 담았어요.' }
 ];
+
+const QUICK_MENU_IDS = ['donkatsu', 'salmon-poke', 'malatang', 'perilla-soba'];
+const LIKED_STORAGE_KEY = 'lunch-pick-liked-menus';
 
 let selectedMood = 'all';
 let currentMenu = menus[0];
 let lastIndex = -1;
 let toastTimer;
+let likedMenuIds = loadLikedMenuIds();
+const likeCounts = new Map(menus.map(menu => [menu.id, 0]));
 
 const $ = (selector) => document.querySelector(selector);
 const card = $('#menuCard');
 const pickButton = $('#pickButton');
+const supabaseConfig = window.LUNCH_PICK_SUPABASE || {};
+const isSupabaseConfigured = Boolean(
+  window.supabase &&
+  /^https:\/\/.+\.supabase\.co$/.test(supabaseConfig.url || '') &&
+  supabaseConfig.anonKey
+);
+const supabaseClient = isSupabaseConfigured
+  ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey)
+  : null;
 
 const formatPrice = (price) => `${price.toLocaleString('ko-KR')}원`;
+const formatLikeCount = (count) => Number(count || 0).toLocaleString('ko-KR');
+
+function loadLikedMenuIds() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(LIKED_STORAGE_KEY) || '[]');
+    return new Set(Array.isArray(stored) ? stored : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveLikedMenuIds() {
+  localStorage.setItem(LIKED_STORAGE_KEY, JSON.stringify([...likedMenuIds]));
+}
 
 function setToday() {
   const parts = new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }).formatToParts(new Date());
@@ -41,6 +69,37 @@ function getCandidates() {
   });
 }
 
+function syncMainHeart() {
+  const button = $('#heartButton');
+  const liked = likedMenuIds.has(currentMenu.id);
+  button.classList.toggle('liked', liked);
+  button.setAttribute('aria-pressed', String(liked));
+  button.setAttribute('aria-label', `${currentMenu.name} ${liked ? '저장 취소' : '저장하기'}`);
+  $('#heartCount').textContent = formatLikeCount(likeCounts.get(currentMenu.id));
+}
+
+function syncQuickHeart(menuId) {
+  const button = document.querySelector(`.quick-like[data-like-menu="${menuId}"]`);
+  if (!button) return;
+  const menu = menus.find(item => item.id === menuId);
+  const liked = likedMenuIds.has(menuId);
+  button.classList.toggle('liked', liked);
+  button.setAttribute('aria-pressed', String(liked));
+  button.setAttribute('aria-label', `${menu.name} ${liked ? '저장 취소' : '저장하기'}`);
+  button.querySelector('[data-like-count]').textContent = formatLikeCount(likeCounts.get(menuId));
+}
+
+function syncLikeButtons(menuId) {
+  syncQuickHeart(menuId);
+  if (currentMenu.id === menuId) syncMainHeart();
+}
+
+function setLikeButtonsBusy(menuId, busy) {
+  if (currentMenu.id === menuId) $('#heartButton').disabled = busy;
+  const quickButton = document.querySelector(`.quick-like[data-like-menu="${menuId}"]`);
+  if (quickButton) quickButton.disabled = busy;
+}
+
 function renderMenu(menu, score = Math.floor(Math.random() * 8) + 92) {
   currentMenu = menu;
   $('#categoryPill').textContent = menu.category;
@@ -51,7 +110,7 @@ function renderMenu(menu, score = Math.floor(Math.random() * 8) + 92) {
   $('#foodEmoji').textContent = menu.emoji;
   $('#foodVisual').setAttribute('aria-label', `${menu.name} 일러스트`);
   $('#matchScore').textContent = score;
-  $('#heartButton').classList.remove('liked');
+  syncMainHeart();
 }
 
 function showToast(message) {
@@ -80,14 +139,65 @@ function pickMenu() {
 }
 
 function renderQuickCards() {
-  const quickMenus = [menus[1], menus[4], menus[5], menus[6]];
-  $('#quickGrid').innerHTML = quickMenus.map(menu => `
-    <button class="quick-card" type="button" data-menu="${menu.name}" aria-label="${menu.name} 추천 보기">
-      <span class="quick-emoji">${menu.emoji}</span>
-      <h3>${menu.name}</h3>
-      <p>${menu.category} · ${menu.time}분 · ${formatPrice(menu.price)}</p>
-      <span class="arrow">↗</span>
-    </button>`).join('');
+  const quickMenus = QUICK_MENU_IDS.map(id => menus.find(menu => menu.id === id));
+  $('#quickGrid').innerHTML = quickMenus.map(menu => {
+    const liked = likedMenuIds.has(menu.id);
+    return `
+      <article class="quick-card" data-menu-id="${menu.id}">
+        <button class="quick-select" type="button" data-menu="${menu.id}" aria-label="${menu.name} 추천 보기">
+          <span class="quick-emoji">${menu.emoji}</span>
+          <h3>${menu.name}</h3>
+          <p>${menu.category} · ${menu.time}분 · ${formatPrice(menu.price)}</p>
+          <span class="arrow">↗</span>
+        </button>
+        <button class="quick-like${liked ? ' liked' : ''}" type="button" data-like-menu="${menu.id}" aria-label="${menu.name} ${liked ? '저장 취소' : '저장하기'}" aria-pressed="${liked}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+          <span data-like-count>${formatLikeCount(likeCounts.get(menu.id))}</span>
+        </button>
+      </article>`;
+  }).join('');
+}
+
+async function loadLikeCounts() {
+  if (!supabaseClient) return;
+  const { data, error } = await supabaseClient.rpc('get_menu_like_counts');
+  if (error) {
+    console.error('Failed to load menu save counts:', error.message);
+    showToast('저장 수를 불러오지 못했어요. Supabase 설정을 확인해주세요.');
+    return;
+  }
+  (data || []).forEach(row => likeCounts.set(row.menu_id, Number(row.like_count)));
+  renderQuickCards();
+  syncMainHeart();
+}
+
+async function toggleMenuLike(menu) {
+  if (!supabaseClient) {
+    showToast('Supabase URL과 Publishable key를 먼저 설정해주세요.');
+    return;
+  }
+
+  const shouldLike = !likedMenuIds.has(menu.id);
+  setLikeButtonsBusy(menu.id, true);
+
+  const { data, error } = await supabaseClient.rpc('change_menu_like', {
+    p_menu_id: menu.id,
+    p_delta: shouldLike ? 1 : -1
+  });
+
+  setLikeButtonsBusy(menu.id, false);
+  if (error) {
+    console.error('Failed to update menu save count:', error.message);
+    showToast('저장하지 못했어요. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+
+  likeCounts.set(menu.id, Number(data));
+  if (shouldLike) likedMenuIds.add(menu.id);
+  else likedMenuIds.delete(menu.id);
+  saveLikedMenuIds();
+  syncLikeButtons(menu.id);
+  showToast(shouldLike ? `${menu.name}, 저장했어요!` : `${menu.name}, 저장을 취소했어요.`);
 }
 
 $('#moodChips').addEventListener('click', event => {
@@ -111,16 +221,19 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Enter' && !['SELECT', 'BUTTON', 'A'].includes(document.activeElement.tagName)) pickMenu();
 });
 
-$('#heartButton').addEventListener('click', event => {
-  const button = event.currentTarget;
-  button.classList.toggle('liked');
-  showToast(button.classList.contains('liked') ? `${currentMenu.name}, 찜했어요!` : '찜 목록에서 뺐어요.');
-});
+$('#heartButton').addEventListener('click', () => toggleMenuLike(currentMenu));
 
 $('#quickGrid').addEventListener('click', event => {
-  const button = event.target.closest('.quick-card');
-  if (!button) return;
-  const menu = menus.find(item => item.name === button.dataset.menu);
+  const likeButton = event.target.closest('.quick-like');
+  if (likeButton) {
+    const menu = menus.find(item => item.id === likeButton.dataset.likeMenu);
+    toggleMenuLike(menu);
+    return;
+  }
+
+  const selectButton = event.target.closest('.quick-select');
+  if (!selectButton) return;
+  const menu = menus.find(item => item.id === selectButton.dataset.menu);
   renderMenu(menu, 97);
   document.querySelector('.result-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
@@ -142,3 +255,5 @@ $('#shareButton').addEventListener('click', async () => {
 
 setToday();
 renderQuickCards();
+syncMainHeart();
+loadLikeCounts();

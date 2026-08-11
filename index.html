@@ -82,8 +82,9 @@
           <article class="menu-card" id="menuCard">
             <div class="card-top">
               <span class="category-pill" id="categoryPill">한식</span>
-              <button class="heart-button" id="heartButton" type="button" aria-label="추천 메뉴 찜하기">
+              <button class="heart-button" id="heartButton" type="button" aria-label="추천 메뉴 저장하기" aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+                <span id="heartCount">0</span>
               </button>
             </div>
             <div class="food-visual" id="foodVisual" role="img" aria-label="김치찌개 일러스트">
@@ -135,6 +136,8 @@
 
     <div class="toast" id="toast" role="status"></div>
     <footer><span>© 2026 Lunch Pick</span><p>점심 고민은 짧게, 맛있는 시간은 길게.</p></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
