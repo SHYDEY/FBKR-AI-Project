@@ -15,4 +15,5 @@ export const USER_MENU: readonly MenuItem[] = [
 
 export const ADMIN_MENU: readonly MenuItem[] = [
   { label: '관리자 현황', href: '/admin', icon: 'admin', description: '기준과 운영 상태' },
+  { label: '사용자 관리', href: '/admin/users', icon: 'admin', description: '사용자 role과 활성 상태' },
 ];
