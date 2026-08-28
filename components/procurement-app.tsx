@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AlertTriangle, BarChart3, Boxes, Check, ChevronLeft, ChevronRight, CircleDollarSign, ClipboardCheck, FileSpreadsheet, FileText, Gauge, Layers3, PackageCheck, Settings2, ShoppingCart, Upload, Workflow, Wrench } from 'lucide-react';
+import { AlertTriangle, BarChart3, Boxes, Check, CircleDollarSign, ClipboardCheck, FileSpreadsheet, FileText, Gauge, Layers3, PackageCheck, Search, Settings2, ShoppingCart, Upload, Workflow, Wrench } from 'lucide-react';
 import DashboardStep from '@/components/workflow/dashboard-step';
 import DemandStep from '@/components/workflow/demand-step';
 import SupplyStep from '@/components/workflow/supply-step';
@@ -63,8 +63,8 @@ export default function ProcurementApp() {
       </aside>
       <main className="main">
         <header className="topbar">
-          <div><div className="eyebrow">MONTHLY PROCUREMENT CONTROL</div><h1>{current.label}</h1></div>
-          <div className="top-meta"><span className="local-badge">LOCAL PROTOTYPE</span><span>기준월도 <b>2026.09</b></span></div>
+          <div className="topbar-title"><div><div className="eyebrow">MONTHLY PROCUREMENT CONTROL</div><h1>{current.label}</h1></div><div className="topbar-search"><Search size={15} aria-hidden="true" /><input aria-label="업무 검색" placeholder="업무 검색" /></div></div>
+          <div className="topbar-tools"><nav className="top-nav" aria-label="보조 메뉴"><button className="top-nav-link active">전체 현황</button><button className="top-nav-link">지표</button><button className="top-nav-link">인사이트</button></nav><div className="top-meta"><span className="local-badge">LOCAL PROTOTYPE</span><span>기준월도 <b>2026.09</b></span></div></div>
         </header>
         <div className="content">
           <div className="progress-wrap">

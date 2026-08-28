@@ -1,0 +1,5 @@
+.chart-area { position: relative; min-height: 260px; padding: var(--space-4); border-bottom: 1px solid var(--color-line); border-left: 1px solid var(--color-line); }
+.chart-legend { display: flex; align-items: center; gap: var(--space-4); color: var(--color-muted); font-size: 10px; }
+.chart-legend-item { display: inline-flex; align-items: center; gap: var(--space-1); }
+.chart-legend-dot { width: 10px; height: 10px; border-radius: 2px; background: var(--color-primary); }
+.chart-legend-dot.secondary { border: 1px solid var(--color-primary); background: var(--color-primary-soft); }
