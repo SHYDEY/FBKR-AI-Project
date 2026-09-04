@@ -1,0 +1,1 @@
+export default function EmptyValue({ reasonCode = 'CALCULATION_UNAVAILABLE' }: { reasonCode?: string | null }) { return <span className="muted" aria-label={`계산 불가 ${reasonCode ?? ''}`}>—{reasonCode ? ` ${reasonCode}` : ''}</span>; }

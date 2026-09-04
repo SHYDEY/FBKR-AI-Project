@@ -1,5 +1,54 @@
-import { createSupabaseServerClient } from './supabase';
-import { normalizeLeadtimeGap, type LeadtimeGap } from './scm-model';
+import { createSupabaseServerClient } from './supabase/server';
+import {
+  normalizeBomRequirement,
+  normalizeDemandProfile,
+  normalizeLeadtimeGap,
+  normalizeOlAccuracy,
+  normalizeShipmentTrend,
+  type BomRequirement,
+  type DemandProfile,
+  type LeadtimeGap,
+  type OlAccuracy,
+  type ShipmentTrend,
+} from './scm-model';
+
+type QueryResult<T> = { rows: T[]; error: string | null };
+
+async function readAnalyticsRows<T>(
+  view: string,
+  normalize: (row: Record<string, unknown>) => T,
+  filter?: { column: string; value: string }
+): Promise<QueryResult<T>> {
+  try {
+    const supabase = await createSupabaseServerClient();
+    let query = supabase.schema('analytics').from(view).select('*');
+    if (filter) query = query.eq(filter.column, filter.value);
+    const { data, error } = await query;
+    if (error) return { rows: [], error: error.message };
+    return {
+      rows: (data ?? []).map((row) => normalize(row as Record<string, unknown>)),
+      error: null,
+    };
+  } catch (error) {
+    return { rows: [], error: error instanceof Error ? error.message : 'Supabase 조회에 실패했습니다.' };
+  }
+}
+
+export function getShipmentTrend(itemCode?: string): Promise<QueryResult<ShipmentTrend>> {
+  return readAnalyticsRows('v_shipment_trend', normalizeShipmentTrend, itemCode ? { column: 'item_code', value: itemCode } : undefined);
+}
+
+export function getDemandProfileRt(itemCode?: string): Promise<QueryResult<DemandProfile>> {
+  return readAnalyticsRows('v_item_demand_profile', normalizeDemandProfile, itemCode ? { column: 'item_code', value: itemCode } : undefined);
+}
+
+export function getOlAccuracy(modelBase?: string): Promise<QueryResult<OlAccuracy>> {
+  return readAnalyticsRows('v_ol_accuracy', normalizeOlAccuracy, modelBase ? { column: 'model_base', value: modelBase } : undefined);
+}
+
+export function getBomRequirement(modelBase: string): Promise<QueryResult<BomRequirement>> {
+  return readAnalyticsRows('v_bom_requirement_x', normalizeBomRequirement, { column: 'model_base', value: modelBase });
+}
 
 export async function getLeadtimeGap(): Promise<{ rows: LeadtimeGap[]; error: string | null }> {
   try {

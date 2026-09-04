@@ -1,0 +1,2 @@
+import type { ReactNode } from 'react';
+export default function KpiCard({ label, value, foot, tone }: { label: string; value: ReactNode; foot?: ReactNode; tone?: 'safe' | 'warning' | 'critical' | 'unavailable' }) { return <section className="card metric"><div className="kpi-label">{label}</div><div className={`kpi-value ${tone ? `text-${tone}` : ''}`}>{value}</div>{foot && <div className="kpi-foot">{foot}</div>}</section>; }

@@ -1,0 +1,11 @@
+.app-shell { min-height: 100vh; display: flex; }
+.sidebar { width: 250px; flex: 0 0 250px; background: var(--color-brand); color: white; padding: 28px 18px; display: flex; flex-direction: column; }
+.brand { display: flex; gap: var(--space-3); align-items: center; margin: 0 8px 38px; }
+.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: var(--radius-md); background: var(--color-accent); font-weight: 800; }
+.brand-copy strong, .brand-copy span { display: block; } .brand-copy strong { font-size: 15px; } .brand-copy span { margin-top: 3px; color: #a7bad2; font-size: 11px; }
+.nav-label { color: #7e99b6; text-transform: uppercase; letter-spacing: 1.3px; font-size: 10px; font-weight: 700; padding: 0 10px; margin-bottom: 9px; }
+.nav-list { display: grid; gap: 5px; } .nav-button { border: 0; border-radius: 10px; color: #c3d2e3; background: transparent; padding: 12px 11px; display: flex; align-items: center; gap: 11px; text-align: left; font-size: 13px; } .nav-button:hover, .nav-button.active { background: var(--color-accent); color: white; }
+.sidebar-foot { margin-top: auto; padding: 15px 10px 0; border-top: 1px solid rgb(255 255 255 / 10%); color: #8fa7c0; font-size: 11px; line-height: 1.6; }
+.main { min-width: 0; flex: 1; } .topbar { min-height: 75px; padding: 0 42px; background: rgb(255 255 255 / 90%); border-bottom: 1px solid var(--color-line); display: flex; justify-content: space-between; align-items: center; } .top-meta { display: flex; align-items: center; gap: 18px; color: var(--color-muted); font-size: 12px; }
+.content { padding: var(--space-6) var(--space-8) 60px; max-width: 1400px; } .eyebrow { color: var(--color-accent); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; } .local-badge { color: var(--color-status-safe); font-size: 11px; font-weight: 700; }
+@media (max-width: 800px) { .sidebar { width: 72px; flex-basis: 72px; padding: 20px 8px; } .brand-copy, .nav-label, .sidebar-foot, .nav-button span:last-child { display: none; } .brand { margin-bottom: 24px; justify-content: center; } .topbar { padding: 0 var(--space-4); } .content { padding: var(--space-4); } }

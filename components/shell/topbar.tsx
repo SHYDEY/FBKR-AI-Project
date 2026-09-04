@@ -1,0 +1,1 @@
+export default function Topbar({ title = 'Supply Chain Control' }: { title?: string }) { return <header className="topbar"><div><div className="eyebrow">MONTHLY PROCUREMENT CONTROL</div><h1>{title}</h1></div><div className="top-meta"><span className="local-badge">SUPABASE LIVE</span></div></header>; }

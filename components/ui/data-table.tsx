@@ -1,0 +1,4 @@
+import type { ReactNode } from 'react';
+import EmptyValue from './empty-value';
+export type DataColumn<T> = { key: string; label: string; align?: 'left' | 'right' | 'center'; render?: (row: T) => ReactNode };
+export default function DataTable<T extends Record<string, unknown>>({ columns, rows, empty = '표시할 데이터가 없습니다.', rowKey }: { columns: DataColumn<T>[]; rows: T[]; empty?: string; rowKey?: (row: T, index: number) => string }) { if (!rows.length) return <p className="muted">{empty}</p>; return <div className="data-table-wrap"><table className="data-table"><thead><tr>{columns.map((c) => <th key={c.key} style={c.align ? { textAlign: c.align } : undefined}>{c.label}</th>)}</tr></thead><tbody>{rows.map((row, i) => <tr key={rowKey?.(row, i) ?? i}>{columns.map((c) => <td key={c.key} style={c.align ? { textAlign: c.align } : undefined}>{c.render ? c.render(row) : row[c.key] == null ? <EmptyValue /> : String(row[c.key])}</td>)}</tr>)}</tbody></table></div>; }

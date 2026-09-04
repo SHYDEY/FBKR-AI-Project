@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import { AlertTriangle, BarChart3, Boxes, Check, ChevronLeft, ChevronRight, CircleDollarSign, ClipboardCheck, FileSpreadsheet, FileText, Gauge, Layers3, PackageCheck, Settings2, ShoppingCart, Upload, Workflow, Wrench } from 'lucide-react';
-import DashboardStep from '@/components/workflow/dashboard-step';
-import DemandStep from '@/components/workflow/demand-step';
-import SupplyStep from '@/components/workflow/supply-step';
-import MasterStep from '@/components/workflow/master-step';
-import CalculationStep from '@/components/workflow/calculation-step';
-import ReportStep from '@/components/workflow/report-step';
+import DashboardStep from '@/app/(legacy)/workflow/dashboard-step';
+import DemandStep from '@/app/(legacy)/workflow/demand-step';
+import SupplyStep from '@/app/(legacy)/workflow/supply-step';
+import MasterStep from '@/app/(legacy)/workflow/master-step';
+import CalculationStep from '@/app/(legacy)/workflow/calculation-step';
+import ReportStep from '@/app/(legacy)/workflow/report-step';
 
 export type StepId = 'dashboard' | 'demand' | 'supply' | 'master' | 'calculation' | 'report';
 
