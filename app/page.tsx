@@ -1,5 +1,5 @@
 import ProcurementApp from '@/components/procurement-app';
 
-export default function LegacyWorkflowPage() {
+export default function Page() {
   return <ProcurementApp />;
 }

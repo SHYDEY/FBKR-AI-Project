@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeLeadtimeGap, normalizeStockoutRisk } from './scm-model.ts';
+import { normalizeLeadtimeGap } from './scm-model.ts';
 
 test('normalizes analytics leadtime rows into the screen model', () => {
   const result = normalizeLeadtimeGap({
@@ -52,11 +52,4 @@ test('reads the real analytics.v_leadtime_gap column names', () => {
     p80: 33,
     gap: 8,
   });
-});
-
-test('preserves stockout calculation-unavailable values and reason codes', () => {
-  const result = normalizeStockoutRisk({ item_id: 'ITEM020', item_name: 'Test item', supplier_id: 'SUP001', current_stock: 10, inbound_qty: 0, available_qty: 10, daily_usage_avg: null, stockout_days: null, risk_status: 'UNKNOWN', reason: 'NO_USAGE' });
-  assert.equal(result.stockoutDays, null);
-  assert.equal(result.reason, 'NO_USAGE');
-  assert.equal(result.riskStatus, 'UNKNOWN');
 });

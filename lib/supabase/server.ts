@@ -1,23 +1,14 @@
-import { createServerClient, type SetAllCookies } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+// 서버 컴포넌트에서 쓰는 Supabase 클라이언트입니다.
+//
+// 조회 함수(lib/scm.ts)가 이 클라이언트를 씁니다.
+// 세션을 쓰지 않는 읽기 전용 조회라 세션 유지 설정을 꺼둡니다.
+
+import { createClient } from '@supabase/supabase-js';
 import { requireSupabaseEnv } from './env';
 
 export async function createSupabaseServerClient() {
   const { url, publishableKey } = requireSupabaseEnv();
-  const cookieStore = await cookies();
-
-  return createServerClient(url, publishableKey, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      setAll(cookiesToSet: Parameters<SetAllCookies>[0]) {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
-        } catch {
-          // Server Component에서는 cookie 쓰기가 불가할 수 있어 middleware가 갱신을 담당합니다.
-        }
-      },
-    },
+  return createClient(url, publishableKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
   });
 }

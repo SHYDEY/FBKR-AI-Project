@@ -27,4 +27,3 @@ next-env.d.ts
 
 # vercel
 .vercel
-.worktrees/
