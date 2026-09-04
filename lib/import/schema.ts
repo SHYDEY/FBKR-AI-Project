@@ -1,0 +1,14 @@
+import type { ColumnMapping, ImportType } from './types';
+
+export const importSchemas: Record<ImportType, { required: string[]; aliases: Record<string, string[]>; numeric: string[]; dates: string[] }> = {
+  usage_history: { required: ['item_id', 'use_date', 'qty'], aliases: { item_id: ['item_id', '품목코드', '품목코드'], use_date: ['use_date', '출고일', '사용일', '일자'], qty: ['qty', '출고수량', '사용수량', '수량'], warehouse: ['warehouse', '창고'], note: ['note', '비고', '메모'] }, numeric: ['qty'], dates: ['use_date'] },
+  inventory: { required: ['item_id', 'current_stock'], aliases: { item_id: ['item_id', '품목코드'], current_stock: ['current_stock', '현재고'], inventory_date: ['inventory_date', '기준일자'] }, numeric: ['current_stock'], dates: ['inventory_date'] },
+  item_master: { required: ['item_id'], aliases: { item_id: ['item_id', '품목코드'], item_name: ['item_name', '품목명'], item_type: ['item_type', '품목구분'], unit: ['unit', '단위'], supplier_id: ['supplier_id', '공급업체코드'] }, numeric: [], dates: [] },
+  supplier_master: { required: ['supplier_id'], aliases: { supplier_id: ['supplier_id', '공급업체코드'], supplier_name: ['supplier_name', '공급업체명'], country: ['country', '국가'], planned_lead_time: ['planned_lead_time', '표준리드타임(일)'] }, numeric: ['planned_lead_time'], dates: [] },
+  purchase_order: { required: ['po_no', 'item_id', 'order_date'], aliases: { po_no: ['po_no', '발주번호'], item_id: ['item_id', '품목코드'], order_date: ['order_date', '발주일'], qty: ['qty', '발주수량'], due_date: ['due_date', '납기예정일'] }, numeric: ['qty'], dates: ['order_date', 'due_date'] },
+  goods_receipt: { required: ['receipt_no', 'po_no', 'item_id', 'receipt_date'], aliases: { receipt_no: ['receipt_no', '입고번호'], po_no: ['po_no', '발주번호'], item_id: ['item_id', '품목코드'], receipt_qty: ['receipt_qty', '입고수량'], receipt_date: ['receipt_date', '입고일'], order_date: ['order_date', '발주일'] }, numeric: ['receipt_qty'], dates: ['receipt_date', 'order_date'] },
+  sales_order: { required: ['sales_order_id', 'item_id', 'order_date'], aliases: { sales_order_id: ['sales_order_id', '주문번호'], item_id: ['item_id', '품목코드'], order_date: ['order_date', '주문일'], quantity: ['quantity', '수량'] }, numeric: ['quantity'], dates: ['order_date'] },
+  business_event: { required: ['event_id', 'event_type', 'event_date'], aliases: { event_id: ['event_id', '이벤트ID'], event_type: ['event_type', '이벤트유형'], event_date: ['event_date', '이벤트일'], item_id: ['item_id', '품목코드'], quantity: ['quantity', '수량'] }, numeric: ['quantity'], dates: ['event_date'] },
+};
+
+export function inferMapping(type: ImportType, columns: string[]): ColumnMapping { const aliases = importSchemas[type].aliases; const mapping: ColumnMapping = {}; for (const column of columns) { const normalized = column.trim().toLowerCase(); const target = Object.entries(aliases).find(([, candidates]) => candidates.some((candidate) => candidate.toLowerCase() === normalized))?.[0]; if (target) mapping[column] = target; } return mapping; }

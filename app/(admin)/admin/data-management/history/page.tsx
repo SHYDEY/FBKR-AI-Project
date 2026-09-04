@@ -1,0 +1,6 @@
+import PageHeader from '@/components/shell/page-header';
+import Panel from '@/components/ui/panel';
+import { getImportHistory } from '@/lib/import/history';
+import Link from 'next/link';
+export const dynamic = 'force-dynamic';
+export default async function ImportHistoryPage() { const { data, error } = await getImportHistory(); return <><PageHeader eyebrow="DATA MANAGEMENT" title="Import History" description="업로드 배치와 검증·적재 상태를 확인합니다." /><Panel>{error ? <p className="text-danger">조회에 실패했습니다: {error.message}</p> : <div className="data-table-wrap"><table className="data-table"><thead><tr><th>파일명</th><th>타입</th><th>모드</th><th>총 행</th><th>성공</th><th>경고</th><th>오류</th><th>상태</th><th>시간</th><th>오류 CSV</th></tr></thead><tbody>{(data ?? []).map((row) => <tr key={row.batch_id}><td>{row.file_name}</td><td>{row.import_type}</td><td>{row.import_mode}</td><td>{row.total_rows}</td><td>{row.success_rows}</td><td>{row.warning_rows}</td><td>{row.error_rows}</td><td>{row.status}</td><td>{new Date(row.uploaded_at).toLocaleString('ko-KR')}</td><td>{row.error_rows || row.warning_rows ? <Link href={`/api/import/errors?batch_id=${row.batch_id}`}>CSV</Link> : '—'}</td></tr>)}</tbody></table></div>}</Panel></>; }

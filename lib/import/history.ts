@@ -1,0 +1,2 @@
+import { createSupabaseServerClient } from '@/lib/supabase/server';
+export async function getImportHistory() { const supabase = await createSupabaseServerClient(); return supabase.schema('core').from('upload_batch').select('batch_id, file_name, import_type, import_mode, total_rows, success_rows, warning_rows, error_rows, status, uploaded_by, uploaded_at, imported_at').order('uploaded_at', { ascending: false }); }

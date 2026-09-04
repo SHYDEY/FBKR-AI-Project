@@ -13,7 +13,8 @@ const scmSource = readFileSync('lib/scm.ts', 'utf8');
 test('조회 계층이 analytics 스키마의 실데이터 뷰를 사용한다', () => {
   assert.match(scmSource, /\.schema\(['"]analytics['"]\)/g);
   assert.match(scmSource, /v_shipment_trend/);
-  assert.match(scmSource, /v_item_demand_profile/);
+  assert.match(scmSource, /v_sku_demand_profile/);
+  assert.match(scmSource, /v_demand_profile_kpi/);
   assert.match(scmSource, /v_ol_accuracy/);
   assert.match(scmSource, /v_bom_requirement_x/);
   assert.match(scmSource, /getShipmentTrend/);

@@ -6,9 +6,12 @@ export const menu = {
     { label: '전체 현황', href: '/' },
     { label: '리드타임 분석', href: '/analysis/leadtime' },
     { label: 'Stockout Risk', href: '/analysis/stockout' },
+    { label: 'SKU Demand Profile', href: '/analysis/demand-profile' },
   ],
   ADMIN: [
     { label: '사용자 관리', href: '/admin/users' },
+    { label: 'File Upload', href: '/admin/data-management/upload' },
+    { label: 'Import History', href: '/admin/data-management/history' },
   ],
 } satisfies Record<MenuRole, MenuItem[]>;
 

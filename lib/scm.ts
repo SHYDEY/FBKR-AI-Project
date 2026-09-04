@@ -2,11 +2,13 @@ import { createSupabaseServerClient } from './supabase/server';
 import {
   normalizeBomRequirement,
   normalizeDemandProfile,
+  normalizeDemandProfileKpi,
   normalizeLeadtimeGap,
   normalizeOlAccuracy,
   normalizeShipmentTrend,
   type BomRequirement,
   type DemandProfile,
+  type DemandProfileKpi,
   type LeadtimeGap,
   type OlAccuracy,
   type ShipmentTrend,
@@ -39,8 +41,10 @@ export function getShipmentTrend(itemCode?: string): Promise<QueryResult<Shipmen
 }
 
 export function getDemandProfileRt(itemCode?: string): Promise<QueryResult<DemandProfile>> {
-  return readAnalyticsRows('v_item_demand_profile', normalizeDemandProfile, itemCode ? { column: 'item_code', value: itemCode } : undefined);
+  return readAnalyticsRows('v_sku_demand_profile', normalizeDemandProfile, itemCode ? { column: 'item_id', value: itemCode } : undefined);
 }
+
+export function getDemandProfileKpi(): Promise<QueryResult<DemandProfileKpi>> { return readAnalyticsRows('v_demand_profile_kpi', normalizeDemandProfileKpi); }
 
 export function getOlAccuracy(modelBase?: string): Promise<QueryResult<OlAccuracy>> {
   return readAnalyticsRows('v_ol_accuracy', normalizeOlAccuracy, modelBase ? { column: 'model_base', value: modelBase } : undefined);
